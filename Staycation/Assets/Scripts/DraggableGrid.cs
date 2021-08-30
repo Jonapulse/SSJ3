@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class DraggableGrid : MonoBehaviour {
 
@@ -16,16 +18,21 @@ public class DraggableGrid : MonoBehaviour {
     public Image[] gridSpaces; //TODO: Make, place, and add to object these highlightable spaces
 
     public int distanceForSpaceSnap = 100; //pixels
-    public 
-
-
-    void Start () {
-        //Image test;
-        //test.
-	}
+    public bool dragging = false;
 	
 	void Update () {
-	    //TODO: Handle highlighting
+	
+      //  List<>
+
+        // Handle highlighting
+        if (!dragging)
+        {
+
+        }
+        else
+        {
+
+        }
             //if not dragging than just inside
             //else 
 	}
