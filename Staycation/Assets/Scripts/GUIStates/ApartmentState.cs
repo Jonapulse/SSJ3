@@ -11,9 +11,9 @@ public class ApartmentState : MonoBehaviour, IGUIState {
     /// Stretch: non-chat display for the note slipped under the door. 
     /// </summary>
 
-    public GUIStateManager.stateType GetID()
+    public GameStateManager.stateType GetID()
     {
-        return GUIStateManager.stateType.apartment;
+        return GameStateManager.stateType.apartment;
     }
 
     public void OnEnter()

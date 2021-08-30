@@ -8,9 +8,9 @@ public class PhoneTradeState : MonoBehaviour, IGUIState
     /// Also calculates the happiness of neighbor with trade and displays it
     /// </summary>
 
-    public GUIStateManager.stateType GetID()
+    public GameStateManager.stateType GetID()
     {
-        return GUIStateManager.stateType.phoneTrade;
+        return GameStateManager.stateType.phoneTrade;
     }
 
     public void OnEnter()

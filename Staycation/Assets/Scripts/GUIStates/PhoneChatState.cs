@@ -9,9 +9,9 @@ public class PhoneChatState : MonoBehaviour, IGUIState
     /// Also back button
     /// </summary>
 
-    public GUIStateManager.stateType GetID()
+    public GameStateManager.stateType GetID()
     {
-        return GUIStateManager.stateType.phoneChat;
+        return GameStateManager.stateType.phoneChat;
     }
 
     public void OnEnter()

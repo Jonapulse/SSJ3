@@ -3,7 +3,7 @@ using System.Collections;
 
 public interface IGUIState {
 
-    GUIStateManager.stateType GetID();
+    GameStateManager.stateType GetID();
 
     void OnEnter();
 

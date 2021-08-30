@@ -7,9 +7,9 @@ public class PhoneHomescreenState : MonoBehaviour, IGUIState
     /// Has Exit button, Chat button, and Scavenge button
     /// </summary>
 
-    public GUIStateManager.stateType GetID()
+    public GameStateManager.stateType GetID()
     {
-        return GUIStateManager.stateType.phoneHomescreen;
+        return GameStateManager.stateType.phoneHomescreen;
     }
 
     public void OnEnter()

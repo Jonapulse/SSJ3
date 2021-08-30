@@ -9,9 +9,9 @@ public class PhoneScavengeState : MonoBehaviour, IGUIState
     /// Also back button.
     /// </summary>
 
-    public GUIStateManager.stateType GetID()
+    public GameStateManager.stateType GetID()
     {
-        return GUIStateManager.stateType.phoneScavenge;
+        return GameStateManager.stateType.phoneScavenge;
     }
 
     public void OnEnter()

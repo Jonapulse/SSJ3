@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class GUIStateManager : MonoBehaviour {
+public class GameStateManager : MonoBehaviour {
     /// <summary>
     /// Controls toggling between states, triggering Enter and Exit behavior
     /// Have the lists for collection and box (for box and trade states that deal with multiple grids).
@@ -11,10 +11,10 @@ public class GUIStateManager : MonoBehaviour {
 
     //////////////////////
     //SINGLETON STUFF
-    protected GUIStateManager() { }
-    private static GUIStateManager _instance = null;
-    public static GUIStateManager Instance {
-        get { return GUIStateManager._instance; }
+    protected GameStateManager() { }
+    private static GameStateManager _instance = null;
+    public static GameStateManager Instance {
+        get { return GameStateManager._instance; }
     }
     private void Awake() {
         if (_instance != this && _instance != null) {
@@ -27,6 +27,7 @@ public class GUIStateManager : MonoBehaviour {
     /////////////////////
 
     public List<IGUIState> gameStates;
+    public DraggableGridManager gridManager;
     private IGUIState currentState;
     public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, boxOrganization, apartment};
 

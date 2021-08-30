@@ -7,9 +7,9 @@ public class BoxOrganizationState : MonoBehaviour, IGUIState
     /// Have a box popup. If possible, make it big enough to fit all items without scroll, and then to also have room for collection and phone trade display.
     /// </summary>
 
-    public GUIStateManager.stateType GetID()
+    public GameStateManager.stateType GetID()
     {
-        return GUIStateManager.stateType.boxOrganization;
+        return GameStateManager.stateType.boxOrganization;
     }
 
     public void OnEnter()
