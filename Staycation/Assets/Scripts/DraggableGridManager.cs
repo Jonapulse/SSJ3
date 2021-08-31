@@ -23,6 +23,7 @@ public class DraggableGridManager : MonoBehaviour {
     {
         public bool active;
         public Image[] spaces;
+        public DraggableItem[] items;
     }
 
     public class NewSpaceData
@@ -33,55 +34,91 @@ public class DraggableGridManager : MonoBehaviour {
     }
 
     public int distanceForSpaceSnap = 100; //pixels
-    public float tweenTime = 0.75f;
+    public float tweenTime = 0.125f;
+    public Color highlightColor = Color.gray;
     private bool dragging = false;
     private bool tweening = false;
     private DraggableItem heldItem;
+    private Vector3 originalPosition;
+    private Image oldHighlightedSpace = null;
 
     public void GrabItem(DraggableItem newheldItem)
     {
         heldItem = newheldItem;
+        originalPosition = heldItem.transform.position;
         dragging = true;
     }
 	
 	void Update () {
 
         NewSpaceData closestSpace = GetClosestGridSpace();
+        Image newHighlightedSpace = closestSpace.newGrid.spaces[closestSpace.index];
+
+        if (oldHighlightedSpace)
+            oldHighlightedSpace.color = Color.white;
 
         // Handle highlighting
         if (!dragging)
         {
-            //if within an object, highlight it
+            Rect testRect = new Rect(newHighlightedSpace.rectTransform.rect);
+            testRect.x += newHighlightedSpace.transform.position.x;
+            testRect.y += newHighlightedSpace.transform.position.y;
+            if(testRect.Contains(Input.mousePosition))
+            {
+                newHighlightedSpace.color = highlightColor;
+                oldHighlightedSpace = newHighlightedSpace;
+            }
+
         }
         else if (!tweening)
         {
-
+            bool inRange = (Input.mousePosition - closestSpace.position).magnitude < distanceForSpaceSnap;
+            if(inRange)
+            {
+                newHighlightedSpace.color = highlightColor;
+                oldHighlightedSpace = newHighlightedSpace;
+            }
 
             //And handle dragging
             heldItem.transform.position = Input.mousePosition;
 
             if(Input.GetMouseButtonUp(0))
             {
-                dragging = false;
                 tweening = true;
 
-                if ((Input.mousePosition - closestSpace.position).magnitude < distanceForSpaceSnap)
+                if (inRange)
                 {
+                    //TODO: Disallowing inactive grids?
+
                     heldItem.transform.DOMove(closestSpace.position, tweenTime).OnComplete(EndTween);
+
+                    DraggableItem itemInSpaceAlready = null;
+                    foreach(DraggableItem item in closestSpace.newGrid.items)
+                    {
+                        if(item.gridIndex == closestSpace.index && item.gridIndex != heldItem.gridIndex)
+                        {
+                            itemInSpaceAlready = item;
+                            itemInSpaceAlready.homeGrid = heldItem.homeGrid;
+                            itemInSpaceAlready.gridIndex = heldItem.gridIndex;
+                            itemInSpaceAlready.transform.DOMove(originalPosition, tweenTime).OnComplete(EndTween);
+                        }
+                    }
+
                     heldItem.homeGrid = closestSpace.newGrid;
                     heldItem.gridIndex = closestSpace.index;
-
-                    //TODO: swap, child grids appropriately and handle grid changes
                 }
                 else //tween back
                 {
-                    //shit, and find the position of your old place
+                    heldItem.transform.DOMove(originalPosition, tweenTime).OnComplete(EndTween);
                 }
             }
         }
 	}
 
-    void EndTween() { tweening = false; }
+    void EndTween() {
+        tweening = false;
+        dragging = false;
+    }
 
     //relative to mouse position
     NewSpaceData GetClosestGridSpace()
@@ -92,7 +129,7 @@ public class DraggableGridManager : MonoBehaviour {
         {
             if(grids[i].active)
             {
-                for(int j = 0; j < grids.Length; j++)
+                for(int j = 0; j < grids[i].spaces.Length; j++)
                 {
                     float distance = (Input.mousePosition - grids[i].spaces[j].transform.position).magnitude;
                     if(distance < minDistance)
