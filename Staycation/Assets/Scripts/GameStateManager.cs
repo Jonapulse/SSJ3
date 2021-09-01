@@ -26,7 +26,6 @@ public class GameStateManager : MonoBehaviour {
     //
     /////////////////////
 
-
     public List<IGUIState> gameStates;
     public DraggableGridManager gridManager;
     public DialogueInfo dialogueInfo;
@@ -53,8 +52,5 @@ public class GameStateManager : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-            chatMan.StartChat(DialogueInfo.singleDialogue.neighborID.Penny, 0, true);
-
     }
 }

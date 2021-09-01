@@ -30,28 +30,36 @@ public class ChatManager : MonoBehaviour
 
     IEnumerator RunChat(DialogueInfo.singleDialogue.chatInformation[] lines, bool isPhone)
     {
-        int dialogueInd = 0;
         GameObject chatAnchor = new GameObject("chat anchor");
         Transform spawn = isPhone ? phoneChatSpawn : apartmentChatSpawn;
         chatAnchor.transform.position = spawn.position;
         chatAnchor.transform.SetParent(spawn);
 
-        while(dialogueInd < lines.Length)
+        int dialogueInd = 0;
+
+        while (dialogueInd < lines.Length)
         {
             GameObject newLine = GameObject.Instantiate(isPhone ? phoneLinePrefab : apartmentLinePrefab);
             TextMeshProUGUI textPro = newLine.GetComponentInChildren<TextMeshProUGUI>();
             textPro.text = lines[dialogueInd].whatIsSaid;
-            newLine.transform.position = spawn.position + Vector3.right * (lines[dialogueInd].whoIsSpeaking == DialogueInfo.singleDialogue.neighborID.player ? youSpeakingNudge : 0);
             newLine.transform.SetParent(chatAnchor.transform);
+            newLine.transform.position += Vector3.down * 3000f; //Start offscreen
 
-            while(!Input.GetMouseButtonDown(0))
-                yield return null;
+            yield return new WaitForEndOfFrame();
 
-            if(dialogueInd != lines.Length - 1)
+            if (dialogueInd != 0)
+            {
                 chatAnchor.transform.DOMoveY(chatAnchor.transform.position.y + textPro.renderedHeight + textBoxSeparation, newChatSpeed);
 
+                yield return new WaitForSeconds(newChatSpeed);
+            }
+
+            newLine.transform.position = spawn.position + Vector3.right * (lines[dialogueInd].whoIsSpeaking == DialogueInfo.singleDialogue.neighborID.player ? youSpeakingNudge : 0);
+
+            while (!Input.GetMouseButtonDown(0))
+                yield return null;
+
             dialogueInd++;
-            yield return new WaitForSeconds(newChatSpeed);
         }
         GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneTrade);
     }
