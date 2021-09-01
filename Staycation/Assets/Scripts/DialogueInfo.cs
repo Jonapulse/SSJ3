@@ -33,7 +33,4 @@ public class DialogueInfo : MonoBehaviour {
         Debug.LogError("Scene for neighbor " + id + " - " + order + " not found");
         return null;
     }
-    
-
-	
 }

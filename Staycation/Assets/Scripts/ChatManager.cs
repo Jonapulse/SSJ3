@@ -47,7 +47,8 @@ public class ChatManager : MonoBehaviour
             while(!Input.GetMouseButtonDown(0))
                 yield return null;
 
-            chatAnchor.transform.DOMoveY(chatAnchor.transform.position.y + textPro.renderedHeight + textBoxSeparation, newChatSpeed);
+            if(dialogueInd != lines.Length - 1)
+                chatAnchor.transform.DOMoveY(chatAnchor.transform.position.y + textPro.renderedHeight + textBoxSeparation, newChatSpeed);
 
             dialogueInd++;
             yield return new WaitForSeconds(newChatSpeed);
