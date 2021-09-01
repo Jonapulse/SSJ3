@@ -29,25 +29,34 @@ public class GameStateManager : MonoBehaviour {
     public List<IGUIState> gameStates;
     public DraggableGridManager gridManager;
     public DialogueInfo dialogueInfo;
-    public ChatManager chatMan;
+    public GameObject stateReference;
+    private IGUIState[] stateList;
     private IGUIState currentState;
     public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, boxOrganization, apartment};
+
+    private void Start()
+    {
+        stateList = stateReference.GetComponents<IGUIState>();
+        currentState = FindState(stateType.apartment);
+    }
 
     public void ChangeState(stateType type)
     {
         currentState.OnExit();
 
-        for(int i = 0; i < gameStates.Count; i++)
-        {
-            if(gameStates[i].GetID().Equals(type))
-            {
-                currentState = gameStates[i];
-                break;
-            }
-            if (i == gameStates.Count - 1) Debug.LogError("ChangeState could not find type: " + type);
-        }
+        currentState = FindState(type);
 
         currentState.OnEnter();
+    }
+
+    IGUIState FindState(stateType type)
+    {
+        for (int i = 0; i < stateList.Length; i++)
+            if (stateList[i].GetID().Equals(type))
+                return stateList[i];
+
+        Debug.LogError("FindState couldn't find " + type);
+        return null;
     }
 
     private void Update()
