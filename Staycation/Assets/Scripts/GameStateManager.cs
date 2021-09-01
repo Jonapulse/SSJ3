@@ -26,8 +26,11 @@ public class GameStateManager : MonoBehaviour {
     //
     /////////////////////
 
+
     public List<IGUIState> gameStates;
     public DraggableGridManager gridManager;
+    public DialogueInfo dialogueInfo;
+    public ChatManager chatMan;
     private IGUIState currentState;
     public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, boxOrganization, apartment};
 
@@ -46,5 +49,12 @@ public class GameStateManager : MonoBehaviour {
         }
 
         currentState.OnEnter();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+            chatMan.StartChat(DialogueInfo.singleDialogue.neighborID.Penny, 0, true);
+
     }
 }
