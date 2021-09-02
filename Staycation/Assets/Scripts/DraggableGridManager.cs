@@ -23,7 +23,8 @@ public class DraggableGridManager : MonoBehaviour {
     {
         public bool active;
         public Image[] spaces;
-        public DraggableItem[] items;
+        public List<DraggableItem> items;
+        public Transform itemFolder;
     }
 
     public class NewSpaceData
@@ -41,6 +42,20 @@ public class DraggableGridManager : MonoBehaviour {
     private DraggableItem heldItem;
     private Vector3 originalPosition;
     private Image oldHighlightedSpace = null;
+
+    private void Start()
+    {
+        //For some reason I have to clone and replace pre-set items so they match their during-play versions. Blech.
+        for(int i = 0; i < grids.Length; i++)
+        {
+            for(int j = 0; j < grids[i].items.Count; j++)
+            {
+                DraggableItem originalItem = grids[i].items[j];
+                grids[i].items[j] = GameObject.Instantiate(originalItem, grids[i].itemFolder);
+                Destroy(originalItem.gameObject);
+            }
+        }
+    }
 
     public void GrabItem(DraggableItem newheldItem)
     {
@@ -92,20 +107,28 @@ public class DraggableGridManager : MonoBehaviour {
 
                     heldItem.transform.DOMove(closestSpace.position, tweenTime).OnComplete(EndTween);
 
+                    //Check for swapping items
                     DraggableItem itemInSpaceAlready = null;
-                    foreach(DraggableItem item in closestSpace.newGrid.items)
+                    foreach(DraggableItem item in closestSpace.newGrid.items) 
                     {
                         if(item.gridIndex == closestSpace.index && item.gridIndex != heldItem.gridIndex)
                         {
                             itemInSpaceAlready = item;
+                            itemInSpaceAlready.homeGrid.items.Remove(heldItem);
+                            heldItem.homeGrid.items.Add(heldItem);
                             itemInSpaceAlready.homeGrid = heldItem.homeGrid;
                             itemInSpaceAlready.gridIndex = heldItem.gridIndex;
                             itemInSpaceAlready.transform.DOMove(originalPosition, tweenTime).OnComplete(EndTween);
                         }
                     }
 
+                    heldItem.homeGrid.items.Remove(heldItem);
+                    closestSpace.newGrid.items.Add(heldItem);
+                    heldItem.transform.SetParent(closestSpace.newGrid.itemFolder);
                     heldItem.homeGrid = closestSpace.newGrid;
                     heldItem.gridIndex = closestSpace.index;
+
+                    GameStateManager.Instance.score.RecalculateScore();
                 }
                 else //tween back
                 {
@@ -143,5 +166,10 @@ public class DraggableGridManager : MonoBehaviour {
             }
         }
         return closestGridSpace;
+    }
+
+    public List<DraggableItem> GetCollection()
+    {
+        return grids[0].items;
     }
 }

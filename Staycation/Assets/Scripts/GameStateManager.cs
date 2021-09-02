@@ -30,6 +30,7 @@ public class GameStateManager : MonoBehaviour {
     public DraggableGridManager gridManager;
     public DialogueInfo dialogueInfo;
     public GameObject stateReference;
+    public ScoreManager score;
     private IGUIState[] stateList;
     private IGUIState currentState;
     public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, boxOrganization, apartment};
