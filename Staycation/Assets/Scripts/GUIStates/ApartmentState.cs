@@ -3,26 +3,29 @@ using System.Collections;
 
 public class ApartmentState : MonoBehaviour, IGUIState {
 
-    /// <summary>
-    /// The collection draggableGrid
-    /// The score display, and recalculating whenever collection grid changes
-    /// Buttons: Box, bed, computer/phone
-    /// Chat display for radio announcements (do we just trigger that if you click radio or at end/beginning of day?)
-    /// Stretch: non-chat display for the note slipped under the door. 
-    /// </summary>
-
     public GameStateManager.stateType GetID()
     {
         return GameStateManager.stateType.apartment;
     }
 
-    public void OnEnter()
+    public void OnEnter(GameStateManager.stateType comingFrom)
     {
 
     }
 
-    public void OnExit()
+    public void OnExit(GameStateManager.stateType goingTo)
     {
 
+    }
+
+    public void ClickComputer()
+    {
+        GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneHomescreen);
+    }
+
+    public void ClickBed()
+    {
+        Debug.Log("You clicked a bed!");
+        //TODO: Sleep thing (and update a text day rating that is x/7 or do that in the radio)
     }
 }

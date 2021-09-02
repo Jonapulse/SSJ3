@@ -13,12 +13,12 @@ public class PhoneTradeState : MonoBehaviour, IGUIState
         return GameStateManager.stateType.phoneTrade;
     }
 
-    public void OnEnter()
+    public void OnEnter(GameStateManager.stateType comingFrom)
     {
         //TODO: Flip phone to proper orientation for trade. What they're offering on the right. Then you can select up to 3 of what you want and have 9 grids for what you offer. Area for player response and return to home.
     }
 
-    public void OnExit()
+    public void OnExit(GameStateManager.stateType goingTo)
     {
 
     }

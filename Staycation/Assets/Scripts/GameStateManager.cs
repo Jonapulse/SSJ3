@@ -33,7 +33,7 @@ public class GameStateManager : MonoBehaviour {
     public ScoreManager score;
     private IGUIState[] stateList;
     private IGUIState currentState;
-    public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, boxOrganization, apartment};
+    public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, apartment};
 
     private void Start()
     {
@@ -43,11 +43,10 @@ public class GameStateManager : MonoBehaviour {
 
     public void ChangeState(stateType type)
     {
-        currentState.OnExit();
-
+        currentState.OnExit(type);
+        stateType currentType = currentState.GetID();
         currentState = FindState(type);
-
-        currentState.OnEnter();
+        currentState.OnEnter(currentType);
     }
 
     IGUIState FindState(stateType type)

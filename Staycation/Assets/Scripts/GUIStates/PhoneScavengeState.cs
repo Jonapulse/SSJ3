@@ -14,12 +14,12 @@ public class PhoneScavengeState : MonoBehaviour, IGUIState
         return GameStateManager.stateType.phoneScavenge;
     }
 
-    public void OnEnter()
+    public void OnEnter(GameStateManager.stateType comingFrom)
     {
 
     }
 
-    public void OnExit()
+    public void OnExit(GameStateManager.stateType goingTo)
     {
 
     }

@@ -5,7 +5,7 @@ public interface IGUIState {
 
     GameStateManager.stateType GetID();
 
-    void OnEnter();
+    void OnEnter(GameStateManager.stateType comingFrom);
 
-    void OnExit();
+    void OnExit(GameStateManager.stateType goingTo);
 }
