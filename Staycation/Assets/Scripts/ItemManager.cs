@@ -35,8 +35,6 @@ public class ItemManager : MonoBehaviour
         newItem.homeGrid = box;
         newItem.gridIndex = targetSpace;
 
-        Debug.Log("TargetSpace is " + targetSpace);
-
         Sequence seq = DOTween.Sequence();
         seq.Insert(0, newItem.transform.DOScale(Vector3.one * 1.75f, 0.5f));
         seq.Insert(0.5f, newItem.transform.DOMove(box.spaces[targetSpace].transform.position, 0.4f));

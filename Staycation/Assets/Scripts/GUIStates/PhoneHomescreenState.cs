@@ -45,7 +45,6 @@ public class PhoneHomescreenState : MonoBehaviour, IGUIState
 
     public void ClickExit()
     {
-        Debug.Log("C");
         GameStateManager.Instance.ChangeState(GameStateManager.stateType.apartment);
     }
 }

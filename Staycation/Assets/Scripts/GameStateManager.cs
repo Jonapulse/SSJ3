@@ -89,6 +89,10 @@ public class GameStateManager : MonoBehaviour {
         nightCover.DOFade(0, 0.75f).OnComplete(TurnOffNightCover);
         day++;
         actionsLeft = actionsPerDay;
+        DraggableGridManager.DraggableGrid box = gridManager.grids[1];
+        for (int i = 0; i < box.items.Count; i++)
+            Destroy(box.items[i].gameObject);
+        box.items = new List<DraggableItem>();
     }
 
     void TurnOffNightCover()
