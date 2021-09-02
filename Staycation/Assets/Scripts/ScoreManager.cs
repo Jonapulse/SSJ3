@@ -54,7 +54,7 @@ public class ScoreManager : MonoBehaviour
 
         int totalScore = catPoints + plantPoints + relicPoints + matchPoints;
         score = totalScore;
-        scoreText.text = "Reggie Rating: " + totalScore + "\n<size=60%>" + catCount + " cats for " + catPoints + "points\n" + plantCount + " plants for " + plantPoints + "points\n" + relicCount + " priceless artifacts for " + relicPoints + "points\n" + matchCount + " set" + (matchCount > 1 ? "s" : "") + " from each for " + matchPoints + " points</size>";
+        scoreText.text = "Reggie Rating: " + totalScore + "\n<size=60%>" + catCount + " cats for " + catPoints + "points\n" + plantCount + " plants for " + plantPoints + "points\n" + relicCount + " priceless artifacts for " + relicPoints + "points\n" + matchCount + " set" + (matchCount != 1 ? "s" : "") + " from each for " + matchPoints + " points</size>";
     }
 
     public int GetScore()

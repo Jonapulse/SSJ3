@@ -35,6 +35,7 @@ public class GameStateManager : MonoBehaviour {
     public ScoreManager score;
     public ItemManager possibleItems;
     public RawImage nightCover;
+    public GameObject uiAnchorToAppearAbove;
     private IGUIState[] stateList;
     private IGUIState currentState;
     public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, apartment};
@@ -93,6 +94,11 @@ public class GameStateManager : MonoBehaviour {
     void TurnOffNightCover()
     {
         nightCover.gameObject.SetActive(false);
+    }
+
+    public void DeductAction()
+    {
+        actionsLeft--;
     }
 
     private void Update()

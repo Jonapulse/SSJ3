@@ -44,7 +44,7 @@ public class DraggableGridManager : MonoBehaviour {
     private Image oldHighlightedSpace = null;
 
     private void Start()
-    {
+    {/*
         //For some reason I have to clone and replace pre-set items so they match their during-play versions. Blech.
         for(int i = 0; i < grids.Length; i++)
         {
@@ -54,7 +54,7 @@ public class DraggableGridManager : MonoBehaviour {
                 grids[i].items[j] = GameObject.Instantiate(originalItem, grids[i].itemFolder);
                 Destroy(originalItem.gameObject);
             }
-        }
+        }*/
     }
 
     public void GrabItem(DraggableItem newheldItem)

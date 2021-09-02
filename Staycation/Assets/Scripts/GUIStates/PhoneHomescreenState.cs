@@ -36,13 +36,11 @@ public class PhoneHomescreenState : MonoBehaviour, IGUIState
     public void ClickChat()
     {
         GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneChat);
-        Debug.Log("A");
     }
 
     public void ClickScavenge()
     {
-        Debug.Log("B");
-        //TODO: For now just do a random scavenge rather than the whole thing
+        GameStateManager.Instance.ScavengeItem();
     }
 
     public void ClickExit()
