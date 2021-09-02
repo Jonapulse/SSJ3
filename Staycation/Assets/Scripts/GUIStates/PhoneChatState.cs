@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PhoneChatState : MonoBehaviour, IGUIState
 {
-    /// <summary>
-    /// Display the four neighbors, with grayed out 'gone scavengin'' wanrings for the ones who are doing that. Clicking runs a chat .
-    /// Play the chat (with settings for phone + portrait) and show trade button at the end.. So it has chat-scroll. But I don't think I'll implement scroll back. Too rarely useful.
-    /// Also back button
-    /// </summary>
+    public GameObject chatScreen;
+    public GameObject select;
+    public GameObject chat;
+    public GameObject[] neighborPortraits; //0 is penny, 1 is shae, 2 is gabe, 3 is ezra, 4 is group
 
     public GameStateManager.stateType GetID()
     {
@@ -16,10 +16,16 @@ public class PhoneChatState : MonoBehaviour, IGUIState
 
     public void OnEnter(GameStateManager.stateType comingFrom)
     {
-
+        //enable right stuff
+        //disable + overlay for people who were chosen last time
     }
 
     public void OnExit(GameStateManager.stateType goingTo)
+    {
+
+    }
+
+    public void ChooseChat(int neighborID) //0 is penny, 1 is shae, 2 is gabe, 3 is ezra
     {
 
     }

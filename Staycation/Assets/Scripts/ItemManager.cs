@@ -43,8 +43,6 @@ public class ItemManager : MonoBehaviour
         seq.Play();
 
         StartCoroutine(SetItemToBoxParent(0.9f, newItem.transform, box.itemFolder));
-
-        GameStateManager.Instance.DeductAction();
     }
 
     IEnumerator SetItemToBoxParent(float delay, Transform newT, Transform newParent)

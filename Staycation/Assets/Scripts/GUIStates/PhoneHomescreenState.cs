@@ -35,11 +35,23 @@ public class PhoneHomescreenState : MonoBehaviour, IGUIState
 
     public void ClickChat()
     {
+        if (GameStateManager.Instance.GetActionsLeft() == 0)
+        {
+            //TODO: I could play a tired noise or send a message
+            return;
+        }
+        GameStateManager.Instance.DeductAction();
         GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneChat);
     }
 
     public void ClickScavenge()
     {
+        if(GameStateManager.Instance.GetActionsLeft() == 0)
+        {
+            //TODO: I could play a tired noise or send a message
+            return;
+        }
+        GameStateManager.Instance.DeductAction();
         GameStateManager.Instance.ScavengeItem();
     }
 

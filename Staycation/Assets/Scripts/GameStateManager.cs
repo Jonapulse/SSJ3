@@ -105,6 +105,11 @@ public class GameStateManager : MonoBehaviour {
         actionsLeft--;
     }
 
+    public int GetActionsLeft()
+    {
+        return actionsLeft;
+    }
+
     private void Update()
     {
     }
