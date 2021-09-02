@@ -25,7 +25,6 @@ public class ApartmentState : MonoBehaviour, IGUIState {
 
     public void ClickBed()
     {
-        Debug.Log("You clicked a bed!");
-        //TODO: Sleep thing (and update a text day rating that is x/7 or do that in the radio)
+        GameStateManager.Instance.NextDay();
     }
 }

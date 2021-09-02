@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameStateManager : MonoBehaviour {
     /// <summary>
@@ -31,14 +33,21 @@ public class GameStateManager : MonoBehaviour {
     public DialogueInfo dialogueInfo;
     public GameObject stateReference;
     public ScoreManager score;
+    public ItemManager possibleItems;
+    public RawImage nightCover;
     private IGUIState[] stateList;
     private IGUIState currentState;
     public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, apartment};
+    private int actionsLeft;
+    public int actionsPerDay;
+    public int day = 1;
 
     private void Start()
     {
         stateList = stateReference.GetComponents<IGUIState>();
         currentState = FindState(stateType.apartment);
+        actionsLeft = actionsPerDay;
+        nightCover.gameObject.SetActive(false);
     }
 
     public void ChangeState(stateType type)
@@ -57,6 +66,33 @@ public class GameStateManager : MonoBehaviour {
 
         Debug.LogError("FindState couldn't find " + type);
         return null;
+    }
+
+    public void ScavengeItem()
+    {
+        possibleItems.GrantRandomItem();
+
+    }
+
+    public void NextDay()
+    {
+        nightCover.gameObject.SetActive(true);
+        nightCover.color = Color.clear;
+        nightCover.DOFade(1, 0.75f).OnComplete(FinishDayTransition);
+
+        //TODO: Special interrupt for end of game
+    }
+
+    void FinishDayTransition()
+    {
+        nightCover.DOFade(0, 0.75f).OnComplete(TurnOffNightCover);
+        day++;
+        actionsLeft = actionsPerDay;
+    }
+
+    void TurnOffNightCover()
+    {
+        nightCover.gameObject.SetActive(false);
     }
 
     private void Update()
