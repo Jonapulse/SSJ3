@@ -43,24 +43,11 @@ public class DraggableGridManager : MonoBehaviour {
     private Vector3 originalPosition;
     private Image oldHighlightedSpace = null;
 
-    private void Start()
-    {/*
-        //For some reason I have to clone and replace pre-set items so they match their during-play versions. Blech.
-        for(int i = 0; i < grids.Length; i++)
-        {
-            for(int j = 0; j < grids[i].items.Count; j++)
-            {
-                DraggableItem originalItem = grids[i].items[j];
-                grids[i].items[j] = GameObject.Instantiate(originalItem, grids[i].itemFolder);
-                Destroy(originalItem.gameObject);
-            }
-        }*/
-    }
-
     public void GrabItem(DraggableItem newheldItem)
     {
         heldItem = newheldItem;
         originalPosition = heldItem.transform.position;
+        heldItem.transform.SetParent(GameStateManager.Instance.uiAnchorToAppearAbove.transform);
         dragging = true;
     }
 	
@@ -118,13 +105,12 @@ public class DraggableGridManager : MonoBehaviour {
                             heldItem.homeGrid.items.Add(heldItem);
                             itemInSpaceAlready.homeGrid = heldItem.homeGrid;
                             itemInSpaceAlready.gridIndex = heldItem.gridIndex;
-                            itemInSpaceAlready.transform.DOMove(originalPosition, tweenTime).OnComplete(EndTween);
+                            itemInSpaceAlready.transform.DOMove(originalPosition, tweenTime).OnComplete(EndTween);                                
                         }
                     }
 
                     heldItem.homeGrid.items.Remove(heldItem);
                     closestSpace.newGrid.items.Add(heldItem);
-                    heldItem.transform.SetParent(closestSpace.newGrid.itemFolder);
                     heldItem.homeGrid = closestSpace.newGrid;
                     heldItem.gridIndex = closestSpace.index;
 
@@ -134,6 +120,11 @@ public class DraggableGridManager : MonoBehaviour {
                 {
                     heldItem.transform.DOMove(originalPosition, tweenTime).OnComplete(EndTween);
                 }
+
+                heldItem.transform.SetParent(heldItem.homeGrid.itemFolder);
+
+                if(GameStateManager.Instance.GetCurrentState() == GameStateManager.stateType.phoneTrade)
+                    GameStateManager.Instance.trade.CalculateTradeScore();
             }
         }
 	}

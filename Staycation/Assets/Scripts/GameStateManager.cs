@@ -37,6 +37,7 @@ public class GameStateManager : MonoBehaviour {
     public RawImage nightCover;
     public GameObject uiAnchorToAppearAbove;
     public ChatManager chat;
+    public PhoneTradeState trade;
     private IGUIState[] stateList;
     private IGUIState currentState;
     public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, apartment};
@@ -113,6 +114,11 @@ public class GameStateManager : MonoBehaviour {
     public int GetActionsLeft()
     {
         return actionsLeft;
+    }
+
+    public stateType GetCurrentState()
+    {
+        return currentState.GetID();
     }
 
     private void Update()

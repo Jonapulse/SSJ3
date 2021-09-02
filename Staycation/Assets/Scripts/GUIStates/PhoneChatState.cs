@@ -29,6 +29,7 @@ public class PhoneChatState : MonoBehaviour, IGUIState
 
     public void OnExit(GameStateManager.stateType goingTo)
     {
+        chat.SetActive(false);
         chatScreen.SetActive(false);
     }
 

@@ -22,15 +22,18 @@ public class TradeItem : MonoBehaviour, IPointerDownHandler
 
         selected = !selected;
         checkMark.SetActive(selected);
+        GameStateManager.Instance.trade.CalculateTradeScore();
     }
 
-    public void TakeItem()
+    public DraggableItem TakeItem()
     {
         checkMark.SetActive(false);
         checkBox.SetActive(false);
         selected = false;
 
-        //TODO: remove item and send it to the trade grid
+        DraggableItem toReturn = item;
+        item = null;
+        return toReturn;
     }
 
     public void GenerateItem()
@@ -41,5 +44,11 @@ public class TradeItem : MonoBehaviour, IPointerDownHandler
 
         item = GameObject.Instantiate(GameStateManager.Instance.possibleItems.itemCandidates[Random.Range(0, GameStateManager.Instance.possibleItems.itemCandidates.Count)], this.transform);
         item.transform.SetAsFirstSibling();
+    }
+
+    public void ClearItem()
+    {
+        if (item)
+            Destroy(item.gameObject);
     }
 }
