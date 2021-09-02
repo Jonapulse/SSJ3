@@ -15,10 +15,12 @@ public class PhoneHomescreenState : MonoBehaviour, IGUIState
 
     public void OnEnter(GameStateManager.stateType comingFrom)
     {
-        if(comingFrom == GameStateManager.stateType.apartment)
+        if(comingFrom == GameStateManager.stateType.apartment || comingFrom == GameStateManager.stateType.phoneTrade)
         {
             phone.transform.DOMove(new Vector3(Screen.width/2, Screen.height/2), 0.5f);
+            phone.transform.DORotate(Vector3.zero, 0.5f);
         }
+        
 
         homeScreenStuff.SetActive(true);
     }

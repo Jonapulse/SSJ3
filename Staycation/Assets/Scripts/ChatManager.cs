@@ -59,6 +59,13 @@ public class ChatManager : MonoBehaviour
 
             dialogueInd++;
         }
-        GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneTrade);
+
+        //STOPGAP IF I DON'T FINISH!
+        //
+     //   GameStateManager.Instance.ScavengeItem();
+      //  GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneHomescreen);
+        //////
+
+         GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneTrade);
     }
 }
