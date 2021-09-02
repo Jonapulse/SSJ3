@@ -36,6 +36,7 @@ public class GameStateManager : MonoBehaviour {
     public ItemManager possibleItems;
     public RawImage nightCover;
     public GameObject uiAnchorToAppearAbove;
+    public ChatManager chat;
     private IGUIState[] stateList;
     private IGUIState currentState;
     public enum stateType {phoneTrade, phoneScavenge, phoneHomescreen, phoneChat, apartment};
@@ -49,6 +50,10 @@ public class GameStateManager : MonoBehaviour {
         currentState = FindState(stateType.apartment);
         actionsLeft = actionsPerDay;
         nightCover.gameObject.SetActive(false);
+
+        //Nuke the save. It's for single plays anyway.
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save(); 
     }
 
     public void ChangeState(stateType type)

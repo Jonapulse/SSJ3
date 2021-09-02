@@ -23,8 +23,6 @@ public class ChatManager : MonoBehaviour
 
     public void StartChat(DialogueInfo.singleDialogue.neighborID partnerID, int chatNumber, bool isPhone)
     {
-        //TODO: setup portrait
-
         StartCoroutine(RunChat(GameStateManager.Instance.dialogueInfo.GetDialogue(partnerID, chatNumber).dialogue, isPhone));
     }
 
