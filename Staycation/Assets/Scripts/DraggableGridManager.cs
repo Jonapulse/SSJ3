@@ -122,6 +122,7 @@ public class DraggableGridManager : MonoBehaviour {
                 }
 
                 heldItem.transform.SetParent(heldItem.homeGrid.itemFolder);
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.itemSnap);
 
                 if(GameStateManager.Instance.GetCurrentState() == GameStateManager.stateType.phoneTrade)
                     GameStateManager.Instance.trade.CalculateTradeScore();

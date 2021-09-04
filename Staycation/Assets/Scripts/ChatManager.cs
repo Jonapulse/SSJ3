@@ -23,10 +23,24 @@ public class ChatManager : MonoBehaviour
 
     public void StartChat(DialogueInfo.singleDialogue.neighborID partnerID, int chatNumber, bool isPhone)
     {
-        StartCoroutine(RunChat(GameStateManager.Instance.dialogueInfo.GetDialogue(partnerID, chatNumber).dialogue, isPhone));
+        int neighbIndex = 0;
+        switch (partnerID)
+        {
+            case (DialogueInfo.singleDialogue.neighborID.Shae):
+                neighbIndex = 1;
+                break;
+            case (DialogueInfo.singleDialogue.neighborID.Gabe):
+                neighbIndex = 2;
+                break;
+            case (DialogueInfo.singleDialogue.neighborID.Ezra):
+                neighbIndex = 3;
+                break;
+        }
+
+        StartCoroutine(RunChat(GameStateManager.Instance.dialogueInfo.GetDialogue(partnerID, chatNumber).dialogue, isPhone, neighbIndex) );
     }
 
-    IEnumerator RunChat(DialogueInfo.singleDialogue.chatInformation[] lines, bool isPhone)
+    IEnumerator RunChat(DialogueInfo.singleDialogue.chatInformation[] lines, bool isPhone, int neighborIndex)
     {
         GameObject chatAnchor = new GameObject("chat anchor");
         Transform spawn = isPhone ? phoneChatSpawn : apartmentChatSpawn;
@@ -43,6 +57,10 @@ public class ChatManager : MonoBehaviour
             newLine.transform.SetParent(chatAnchor.transform);
             newLine.transform.position += Vector3.down * 3000f; //Start offscreen
 
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.newText);
+            if (!(lines[dialogueInd].whoIsSpeaking == DialogueInfo.singleDialogue.neighborID.player))
+                SoundManager.Instance.PlayVoice(neighborIndex, textPro.text.Length * 0.1f);
+
             yield return new WaitForEndOfFrame();
 
             if (dialogueInd != 0)
@@ -56,6 +74,7 @@ public class ChatManager : MonoBehaviour
 
             while (!Input.GetMouseButtonDown(0))
                 yield return null;
+            SoundManager.Instance.HaltVoice();
 
             dialogueInd++;
         }

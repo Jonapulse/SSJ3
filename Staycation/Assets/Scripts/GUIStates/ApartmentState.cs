@@ -20,11 +20,16 @@ public class ApartmentState : MonoBehaviour, IGUIState {
 
     public void ClickComputer()
     {
-        GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneHomescreen);
+        if(GameStateManager.Instance.GetCurrentState() == GameStateManager.stateType.apartment)
+            GameStateManager.Instance.ChangeState(GameStateManager.stateType.phoneHomescreen);
     }
 
     public void ClickBed()
     {
-        GameStateManager.Instance.NextDay();
+        if (GameStateManager.Instance.GetCurrentState() == GameStateManager.stateType.apartment)
+        {
+            GameStateManager.Instance.NextDay();
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.screenToBlack);
+        }
     }
 }

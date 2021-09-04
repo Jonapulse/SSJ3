@@ -25,6 +25,8 @@ public class PhoneTradeState : MonoBehaviour, IGUIState
 
         for (int i = 0; i < trades.Length; i++)
             trades[i].GenerateItem();
+
+        CalculateTradeScore();
     }
 
     public void OnExit(GameStateManager.stateType goingTo)

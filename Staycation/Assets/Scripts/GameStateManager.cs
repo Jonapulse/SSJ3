@@ -92,6 +92,7 @@ public class GameStateManager : MonoBehaviour {
 
     void FinishDayTransition()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.wakeUp);
         nightCover.DOFade(0, 0.75f).OnComplete(TurnOffNightCover);
         day++;
         actionsLeft = actionsPerDay;

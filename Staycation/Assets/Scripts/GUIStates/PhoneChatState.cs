@@ -23,7 +23,7 @@ public class PhoneChatState : MonoBehaviour, IGUIState
         if(GameStateManager.Instance.day > 0)
         {
             for (int i = 0; i < disableCovers.Length; i++)
-                disableCovers[i].SetActive(PlayerPrefs.GetInt("day" + (GameStateManager.Instance.day - 1) + ":" + i, 0) == 1);
+                disableCovers[i].SetActive(PlayerPrefs.GetInt("day" + (GameStateManager.Instance.day - 1) + ":" + i, 0) == 1 || PlayerPrefs.GetInt("day" + (GameStateManager.Instance.day) + ":" + i, 0) == 1);
         }
     }
 

@@ -39,7 +39,7 @@ public class PhoneHomescreenState : MonoBehaviour, IGUIState
     {
         if (GameStateManager.Instance.GetActionsLeft() == 0)
         {
-            //TODO: I could play a tired noise or send a message
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.negative);
             return;
         }
         GameStateManager.Instance.DeductAction();
@@ -50,7 +50,7 @@ public class PhoneHomescreenState : MonoBehaviour, IGUIState
     {
         if(GameStateManager.Instance.GetActionsLeft() == 0)
         {
-            //TODO: I could play a tired noise or send a message
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.negative);
             return;
         }
         GameStateManager.Instance.DeductAction();
