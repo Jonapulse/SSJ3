@@ -21,6 +21,8 @@ public class ChatManager : MonoBehaviour
     public int textBoxSeparation = 50;
     public float newChatSpeed = 0.25f;
 
+    private float referencePixelWidth = 1920;
+
     public void StartChat(DialogueInfo.singleDialogue.neighborID partnerID, int chatNumber, bool isPhone)
     {
         int neighbIndex = 0;
@@ -49,10 +51,14 @@ public class ChatManager : MonoBehaviour
 
         int dialogueInd = 0;
 
+        float screenAdjust = Screen.width / referencePixelWidth;
+
         while (dialogueInd < lines.Length)
         {
             GameObject newLine = GameObject.Instantiate(isPhone ? phoneLinePrefab : apartmentLinePrefab);
+            (newLine.transform as RectTransform).sizeDelta = new Vector2((newLine.transform as RectTransform).sizeDelta.x * screenAdjust, (newLine.transform as RectTransform).sizeDelta.y * screenAdjust);
             TextMeshProUGUI textPro = newLine.GetComponentInChildren<TextMeshProUGUI>();
+            textPro.fontSize = 30 * screenAdjust;
             textPro.text = lines[dialogueInd].whatIsSaid;
             newLine.transform.SetParent(chatAnchor.transform);
             newLine.transform.position += Vector3.down * 3000f; //Start offscreen
@@ -70,7 +76,7 @@ public class ChatManager : MonoBehaviour
                 yield return new WaitForSeconds(newChatSpeed);
             }
 
-            newLine.transform.position = spawn.position + Vector3.right * (lines[dialogueInd].whoIsSpeaking == DialogueInfo.singleDialogue.neighborID.player ? youSpeakingNudge : 0);
+            newLine.transform.position = spawn.position + Vector3.right * (lines[dialogueInd].whoIsSpeaking == DialogueInfo.singleDialogue.neighborID.player ? youSpeakingNudge : 0) * screenAdjust;
 
             while (!Input.GetMouseButtonDown(0))
                 yield return null;
