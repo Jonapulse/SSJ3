@@ -71,7 +71,7 @@ public class ChatManager : MonoBehaviour
 
             if (dialogueInd != 0)
             {
-                chatAnchor.transform.DOMoveY(chatAnchor.transform.position.y + textPro.renderedHeight + textBoxSeparation, newChatSpeed);
+                chatAnchor.transform.DOMoveY(chatAnchor.transform.position.y + textPro.renderedHeight + textBoxSeparation * screenAdjust, newChatSpeed);
 
                 yield return new WaitForSeconds(newChatSpeed);
             }

@@ -36,7 +36,8 @@ public class DraggableGridManager : MonoBehaviour {
 
     public int distanceForSpaceSnap = 100; //pixels
     public float tweenTime = 0.125f;
-    public Color highlightColor = Color.gray;
+    private Color deHighlightColor = new Color(154/255f, 168/255f, 194/255f);
+    private Color highlightColor = Color.white;
     private bool dragging = false;
     private bool tweening = false;
     private DraggableItem heldItem;
@@ -57,7 +58,7 @@ public class DraggableGridManager : MonoBehaviour {
         Image newHighlightedSpace = closestSpace.newGrid.spaces[closestSpace.index];
 
         if (oldHighlightedSpace)
-            oldHighlightedSpace.color = Color.white;
+            oldHighlightedSpace.color = deHighlightColor;
 
         // Handle highlighting
         if (!dragging)
