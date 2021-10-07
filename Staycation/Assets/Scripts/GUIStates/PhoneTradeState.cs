@@ -12,6 +12,8 @@ public class PhoneTradeState : MonoBehaviour, IGUIState
     public TextMeshProUGUI scoreText;
     public GameObject[] scoreMoticons;
 
+    private float referencePixelWidth = 1920;
+
     public GameStateManager.stateType GetID()
     {
         return GameStateManager.stateType.phoneTrade;
@@ -19,7 +21,10 @@ public class PhoneTradeState : MonoBehaviour, IGUIState
 
     public void OnEnter(GameStateManager.stateType comingFrom)
     {
-        phone.transform.DOMove(new Vector3(Screen.width / 2 + 376, Screen.height / 2 - 214), 0.5f);
+        float screenAdjust = Screen.width / referencePixelWidth;
+        print(screenAdjust);
+
+        phone.transform.DOMove(new Vector3(Screen.width / 2 + 376 * screenAdjust, Screen.height / 2 - 214 * screenAdjust), 0.5f);
         phone.transform.DORotate(new Vector3(0, 0, 90), 0.5f);
         tradeScreen.SetActive(true);
 
